@@ -25,12 +25,12 @@ public class SimilarityChecker {
     }
 
     private void assertIllegalArgument(String alphabetsA, String alphabetsB) {
+        checkInputValid(alphabetsA);
+        checkInputValid(alphabetsB);
+    }
+
+    private static void checkInputValid(String alphabetsA) {
         for (char alphabet : alphabetsA.toCharArray()) {
-            if(alphabet < 'A' || alphabet > 'Z') {
-                throw new IllegalArgumentException();
-            }
-        }
-        for (char alphabet : alphabetsB.toCharArray()) {
             if(alphabet < 'A' || alphabet > 'Z') {
                 throw new IllegalArgumentException();
             }
