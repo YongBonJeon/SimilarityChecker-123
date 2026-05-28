@@ -61,4 +61,34 @@ class SimilarityCheckerTest {
 
         assertThat(lengthScore).isEqualTo(30);
     }
+
+    @Test
+    void calculateAlphabetScoreTest_ASD_DSA() {
+        double alphabetScore = similarityChecker.calculateAlphabetScore("ASD", "DSA");
+
+        assertThat(alphabetScore).isEqualTo(40);
+    }
+
+    @Test
+    void calculateAlphabetScoreTest_A_BB() {
+        double alphabetScore = similarityChecker.calculateAlphabetScore("A", "BB");
+
+        assertThat(alphabetScore).isEqualTo(0);
+    }
+
+    @Test
+    void calculateAlphabetScoreTest_AAABB_BA() {
+        double alphabetScore = similarityChecker.calculateAlphabetScore("AAABB", "BA");
+
+        assertThat(alphabetScore).isEqualTo(40);
+    }
+
+    @Test
+    void calculateAlphabetScoreTest_AA_AAE() {
+        double alphabetScore = similarityChecker.calculateAlphabetScore("AA", "AAE");
+
+        assertThat(alphabetScore).isEqualTo(20);
+    }
+
+
 }

@@ -1,3 +1,6 @@
+import java.util.HashSet;
+import java.util.Set;
+
 public class SimilarityChecker {
     public double calculateLengthScore(String alphabetsA, String alphabetsB) {
         assertIllegalArgument(alphabetsA, alphabetsB);
@@ -35,5 +38,26 @@ public class SimilarityChecker {
                 throw new IllegalArgumentException();
             }
         }
+    }
+
+    public double calculateAlphabetScore(String alphabetsA, String alphabetsB) {
+        assertIllegalArgument(alphabetsA, alphabetsB);
+
+        Set<Character> usedAlphabetsASet = new HashSet<>();
+        Set<Character> usedAlphabetsBSet = new HashSet<>();
+
+        for (char c : alphabetsA.toCharArray()) usedAlphabetsASet.add(c);
+        for (char c : alphabetsB.toCharArray()) usedAlphabetsBSet.add(c);
+
+        Set<Character> intersection = new HashSet<>(usedAlphabetsASet);
+        intersection.retainAll(usedAlphabetsBSet);
+        int sameCnt = intersection.size();
+
+        Set<Character> union = new HashSet<>(usedAlphabetsASet);
+        union.addAll(usedAlphabetsBSet);
+        int totalCnt = union.size();
+
+        return (int) ((double) sameCnt / totalCnt * 40);
+
     }
 }
