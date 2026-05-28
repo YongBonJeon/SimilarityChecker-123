@@ -22,16 +22,17 @@ class SimilarityCheckerTest {
 
     @Test
     void assertInvalidInput() {
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> similarityChecker.calculateLengthScore("123")
-        );
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> similarityChecker.calculateLengthScore("aAB")
-        );
+        assertIllegalArgument("123");
+        assertIllegalArgument("aAB");
 
 
+    }
+
+    private void assertIllegalArgument(String alphabets) {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> similarityChecker.calculateLengthScore(alphabets)
+        );
     }
 
 }
