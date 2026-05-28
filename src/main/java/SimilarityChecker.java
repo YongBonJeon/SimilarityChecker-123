@@ -1,3 +1,6 @@
+import java.util.HashSet;
+import java.util.Set;
+
 public class SimilarityChecker {
     public double calculateLengthScore(String alphabetsA, String alphabetsB) {
         assertIllegalArgument(alphabetsA, alphabetsB);
@@ -35,5 +38,41 @@ public class SimilarityChecker {
                 throw new IllegalArgumentException();
             }
         }
+    }
+
+    public double calculateAlphabetScore(String alphabetsA, String alphabetsB) {
+        assertIllegalArgument(alphabetsA, alphabetsB);
+
+        Set<Character> usedAlphabetsASet = getUsedAlphabetsASet(alphabetsA);
+        Set<Character> usedAlphabetsBSet = getUsedAlphabetsASet(alphabetsB);
+
+        int sameCnt = calculateSameCnt(usedAlphabetsASet, usedAlphabetsBSet);
+        int totalCnt = calculateTotalCnt(usedAlphabetsASet, usedAlphabetsBSet);
+
+        return calculateAlphabetPartialScore(sameCnt, totalCnt);
+
+    }
+
+    private double calculateAlphabetPartialScore(int sameCnt, int totalCnt) {
+        return (double) sameCnt / totalCnt * 40.0;
+    }
+
+    private int calculateTotalCnt(Set<Character> usedAlphabetsASet, Set<Character> usedAlphabetsBSet) {
+        Set<Character> union = new HashSet<>(usedAlphabetsASet);
+        union.addAll(usedAlphabetsBSet);
+        return union.size();
+    }
+
+    private int calculateSameCnt(Set<Character> usedAlphabetsASet, Set<Character> usedAlphabetsBSet) {
+        Set<Character> intersection = new HashSet<>(usedAlphabetsASet);
+        intersection.retainAll(usedAlphabetsBSet);
+        return intersection.size();
+    }
+
+    private Set<Character> getUsedAlphabetsASet(String alphabetsA) {
+        Set<Character> usedAlphabetsASet = new HashSet<>();
+
+        for (char c : alphabetsA.toCharArray()) usedAlphabetsASet.add(c);
+        return usedAlphabetsASet;
     }
 }
